@@ -15,6 +15,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
+    public static final String ITEM_KEY = "ITEM_KEY";
     private ListView mItemsLV;
     private EditText mContentED;
     private Button mSaveBtn;
@@ -93,20 +94,22 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onDestroy: ");
     }
 
-    //todo restore instance state
-    //todo restore string array
-    //todo recreate items from their descriptions
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         Log.i(TAG, "onRestoreInstanceState: ");
+        String[] itemDescriptions = savedInstanceState.getStringArray(ITEM_KEY);
+        if (itemDescriptions != null) {
+            for (String itemDescription : itemDescriptions) {
+                addItem(itemDescription);
+            }
+        }
     }
 
-    //todo save instance state
-    //todo add item description into bundle
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.i(TAG, "onSaveInstanceState: ");
+        outState.putStringArray(ITEM_KEY, getItemHeaders(items).toArray(new String[0]));
     }
 }
