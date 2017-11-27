@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -64,6 +65,13 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    private void addItems(List<Item> item) {
+        items.addAll(item);
+        adapter.clear();
+        adapter.addAll(getItemHeaders(items));
+        adapter.notifyDataSetChanged();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -94,15 +102,14 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onDestroy: ");
     }
 
+
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         Log.i(TAG, "onRestoreInstanceState: ");
-        String[] itemDescriptions = savedInstanceState.getStringArray(ITEM_KEY);
-        if (itemDescriptions != null) {
-            for (String itemDescription : itemDescriptions) {
-                addItem(itemDescription);
-            }
+        Item[] items = (Item[]) savedInstanceState.getParcelableArray(ITEM_KEY);
+        if (items != null) {
+            addItems(Arrays.asList(items));
         }
     }
 
@@ -110,6 +117,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.i(TAG, "onSaveInstanceState: ");
-        outState.putStringArray(ITEM_KEY, getItemHeaders(items).toArray(new String[0]));
+        outState.putParcelableArray(ITEM_KEY, items.toArray(new Item[0]));
     }
 }
