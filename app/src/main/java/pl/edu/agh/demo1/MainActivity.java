@@ -60,4 +60,14 @@ public class MainActivity extends AppCompatActivity {
         adapter.addAll(getItemHeaders(items));
         adapter.notifyDataSetChanged();
     }
+    //todo override onResume
+    //todo override onStart
+    //todo override onStop
+    //todo override onPause
+    //todo override onDestroy
+    //todo override onRestoreInstanceState
+    //todo override onSaveInstanceState
+    //todo add logger in ALL overriden methods including onCreate
+    //todo run emulator, goto logcat, view logged TAG, try rotate screen, switch app to foreground, turn on/off screen
+
 }

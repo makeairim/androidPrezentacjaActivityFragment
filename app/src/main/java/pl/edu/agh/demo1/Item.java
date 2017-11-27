@@ -1,14 +1,11 @@
 package pl.edu.agh.demo1;
 
-import java.util.Date;
-
 /**
  * Created by bwolcerz on 27.11.2017.
  */
 
 public class Item {
     private String description;
-    private boolean isPrioritized;
 
     public Item() {
     }
@@ -25,11 +22,4 @@ public class Item {
         this.description = description;
     }
 
-    public boolean isPrioritized() {
-        return isPrioritized;
-    }
-
-    public void setPrioritized(boolean prioritized) {
-        isPrioritized = prioritized;
-    }
 }
