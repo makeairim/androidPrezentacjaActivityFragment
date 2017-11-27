@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -34,6 +35,15 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_selectable_list_item, getItemHeaders(items));
         mItemsLV.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        mSaveBtn.setOnClickListener(l -> {
+            String content = (mContentED.getText() != null ? mContentED.getText().toString() : "").trim();
+            if (content.isEmpty()) {
+                Toast.makeText(this, "Empty item", Toast.LENGTH_SHORT).show();
+            } else {
+                mContentED.setText("");
+                addItem(content);
+            }
+        });
     }
 
     private List<String> getItemHeaders(List<Item> items) {
@@ -42,5 +52,12 @@ public class MainActivity extends AppCompatActivity {
             itemDescription.add(item.getDescription());
         }
         return itemDescription;
+    }
+
+    private void addItem(String desription) {
+        items.add(new Item(desription));
+        adapter.clear();
+        adapter.addAll(getItemHeaders(items));
+        adapter.notifyDataSetChanged();
     }
 }

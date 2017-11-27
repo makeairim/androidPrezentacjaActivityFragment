@@ -8,10 +8,13 @@ import java.util.Date;
 
 public class Item {
     private String description;
-    private Date date;
     private boolean isPrioritized;
 
     public Item() {
+    }
+
+    public Item(String description) {
+        this.description = description;
     }
 
     public String getDescription() {
@@ -20,14 +23,6 @@ public class Item {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public boolean isPrioritized() {
