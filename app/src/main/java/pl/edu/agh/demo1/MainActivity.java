@@ -1,5 +1,6 @@
 package pl.edu.agh.demo1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
                 addItem(content);
             }
         });
+        mItemsLV.setOnItemClickListener((adapterView, view, i, l) ->
+                startActivityForResult(DetailActivity.newInstance(this, new ArrayList<>(items), i), DetailActivity.REQUEST_CODE));
     }
 
     private List<String> getItemHeaders(List<Item> items) {
@@ -118,5 +121,21 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         Log.i(TAG, "onSaveInstanceState: ");
         outState.putParcelableArray(ITEM_KEY, items.toArray(new Item[0]));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case RESULT_OK:
+                if (requestCode == DetailActivity.REQUEST_CODE) {
+                    ArrayList<Item> result = data.getParcelableArrayListExtra(DetailActivity.ITEM_KEY);
+                    if (result != null) {
+                        items.clear();
+                        addItems(result);
+                    }
+                }
+                break;
+        }
     }
 }
