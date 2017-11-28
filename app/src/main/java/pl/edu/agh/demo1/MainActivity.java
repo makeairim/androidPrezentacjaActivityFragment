@@ -14,7 +14,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+//todo add new activity
+//todo add activity to AndroidManifest
+//todo in AndroidManifest set activity parent to MainActivity
 
+//todo in created activity add edittext to edit item data
+//todo add save button to save item data and return to previous activity
+//todo to maintain state when click back button in navigationbar override onOptionsItemSelected, check if item is android.R.id.home and set activity result data
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
     public static final String ITEM_KEY = "ITEM_KEY";
@@ -49,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
                 addItem(content);
             }
         });
-        mItemsLV.setOnItemClickListener((adapterView, view, i, l) ->
-                startActivityForResult(DetailActivity.newInstance(this, new ArrayList<>(items), i), DetailActivity.REQUEST_CODE));
+        //todo add onItemClickListener on listview
+        //todo create new activity
+        //todo pass data to new activity to show item
+        //todo use startActivityForResult to receive result data from new activity
     }
 
     private List<String> getItemHeaders(List<Item> items) {
@@ -123,19 +131,8 @@ public class MainActivity extends AppCompatActivity {
         outState.putParcelableArray(ITEM_KEY, items.toArray(new Item[0]));
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode) {
-            case RESULT_OK:
-                if (requestCode == DetailActivity.REQUEST_CODE) {
-                    ArrayList<Item> result = data.getParcelableArrayListExtra(DetailActivity.ITEM_KEY);
-                    if (result != null) {
-                        items.clear();
-                        addItems(result);
-                    }
-                }
-                break;
-        }
-    }
+    //todo override onActivityResult to receive data from startActivityForResult
+    //todo check resultCode
+    //todo check requestCode
+    //todo update view in MainActivity
 }
